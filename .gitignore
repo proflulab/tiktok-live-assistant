@@ -24,6 +24,6 @@ go.sum
 # env file
 .env
 
-.public/cookies/cookies.tmp
+*.tmp
 
 .idea
