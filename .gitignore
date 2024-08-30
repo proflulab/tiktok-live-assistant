@@ -19,7 +19,11 @@
 
 # Go workspace file
 go.work
-go.work.sum
+go.sum
 
 # env file
 .env
+
+.public/cookies/cookies.tmp
+
+.idea
