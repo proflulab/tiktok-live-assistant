@@ -4,20 +4,28 @@
 
 ### 1.环境准备
 先安装并配置Go环境，版本为1.20.6  
-压缩包： https://golang.google.cn/dl/go1.20.6.windows-amd64.zip
 
-保姆式教程链接：https://blog.csdn.net/ohmygodes/article/details/122646716
+保姆级教程链接：https://blog.csdn.net/ohmygodes/article/details/122646716
+
+使用 `win` + `R` 组合键打开CMD终端
+
+在CMD终端使用 `go version` 命令验证是否安装成功
+
+
 
 ### 2.拉取项目
 将项目拉取到本地，在CMD终端cd到项目的目录中
 
-可以先使用 `go version` 验证是否安装成功
+例如：
+
+`cd/d D:\tiktok-live-assistant`
 
 ### 3.运行项目
-初次使用前先安装依赖： `go mod init`
+先执行初始化依赖项命令： `go mod init`
 
-使用命令启动程序： `go run ./main.go`
+然后再使用启动程序命令： `go run ./main.go`
 
+最后按照提示完成步骤
 ### 项目结构
 
 ```text
@@ -37,6 +45,8 @@ tiktok-live-assistant/
 2.登录抖音并保存cookies
 
 3.完成登录跳转直播间
+
+4.优化缓存配置，减少空间占用
 
 ### 待完成
 
@@ -58,7 +68,9 @@ tiktok-live-assistant/
 
 2.使用GORM框架操作数据库
 
-3.使用Docker容器化技术
+3.使用HTTP框架调用大模型
+
+4.实现更多的自动操作，减少手动操作
 
 
 

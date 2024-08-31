@@ -26,8 +26,10 @@ func init() {
 // 加载Cookies
 func loadCookies() chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
+		fmt.Println("正在读取Cookies...")
 		// 如果cookies临时文件不存在则直接跳过
 		if _, _err := os.Stat(cookiesPath); os.IsNotExist(_err) {
+			fmt.Println("未找到Cookies")
 			return
 		}
 		// 如果存在则读取cookies的数据
@@ -40,36 +42,11 @@ func loadCookies() chromedp.ActionFunc {
 		if err = cookiesParams.UnmarshalJSON(cookiesData); err != nil {
 			return
 		}
-
-		// 设置cookies
+		//fmt.Println("反序列化后的 Cookies:")
+		//cookiesJSON, _ := json.MarshalIndent(cookiesParams.Cookies, "", "  ")
+		//fmt.Println(string(cookiesJSON))
+		fmt.Println("读取完成，开始设置Cookies")
 		return network.SetCookies(cookiesParams.Cookies).Do(ctx)
-	}
-}
-
-// 保存Cookies
-func saveCookies() chromedp.ActionFunc {
-	return func(ctx context.Context) (err error) {
-
-		fmt.Println("开始保存......")
-		// cookies的获取对应是在devTools的network面板中
-		// 1. 获取cookies
-		cookies, err := network.GetCookies().Do(ctx)
-		if err != nil {
-			return
-		}
-
-		// 2. 序列化
-		cookiesData, err := network.GetCookiesReturns{Cookies: cookies}.MarshalJSON()
-		if err != nil {
-			return
-		}
-
-		// 3. 存储到临时文件
-		if err = ioutil.WriteFile(cookiesPath, cookiesData, 0755); err != nil {
-			return
-		}
-		fmt.Println("已保存")
-		return
 	}
 }
 
@@ -77,22 +54,36 @@ func saveCookies() chromedp.ActionFunc {
 func checkSaveCookies() chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		var choice int
-		fmt.Println("请完成登录后再来选择")
-		fmt.Println("是否保存Cookies？ 1.是  2.否")
-		fmt.Println("请输入数字：")
-		_, err = fmt.Scanf("%d", &choice)
-		if err != nil {
-			fmt.Println("发生错误", err.Error())
-			return
-		}
+		fmt.Println("完成登录后按任意键继续...")
+		_, _ = fmt.Scanln()
+		fmt.Println("是否保存Cookies？（如果之前已经保存，可以选否） ")
+		fmt.Println("请选择然后按回车键 1.是  2.否")
+		_, _ = fmt.Scanln(&choice)
+
 		if choice == 1 {
-			saveCookies()
+			fmt.Println("开始保存......")
+			// cookies的获取对应是在devTools的network面板中
+			// 1. 获取cookies
+			cookies, res := network.GetCookies().Do(ctx)
+			if res != nil {
+				return
+			}
+			// 2. 序列化
+			cookiesData, res := network.GetCookiesReturns{Cookies: cookies}.MarshalJSON()
+			if res != nil {
+				return
+			}
+			// 3. 存储到临时文件
+			if res = ioutil.WriteFile(cookiesPath, cookiesData, 0755); res != nil {
+				return
+			}
+			fmt.Println("已保存")
+			return
 		} else if choice == 2 {
 			return
 		} else {
 			fmt.Println("格式错误")
 			return
 		}
-		return
 	}
 }
