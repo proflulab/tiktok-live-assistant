@@ -1,5 +1,13 @@
 # tiktok-live-assistant
 ### 注意：本项目仅支持Chrome浏览器，且仅用于学习使用
+### 需要自行在项目目录下创建 .env文件，该文件内容如下：
+```text
+TIKTOK_URL=https://www.douyin.com/
+TIKTOK_LIVE_URL=https://live.douyin.com/
+ROOM_ID=换成直播间ID
+ROOM_XPATH=换成评论区的评论item（在浏览器使用“检查”复制元素的class）
+```
+
 ## 使用说明
 
 ### 1.环境准备
@@ -56,7 +64,7 @@ tiktok-live-assistant/
 
 1.优化缓存配置，减少空间占用（已完成）
 
-2.三线程提高效率（未完成）
+2.使用协程提高效率（未完成）
 
 3.数据实时同步至多维表（未完成）
 
@@ -64,17 +72,15 @@ tiktok-live-assistant/
 
 ### 项目后续
 
-1.使用协程提高并发能力
+1.使用GORM框架操作SQLite
 
-2.使用GORM框架操作SQLite
+2.使用HTTP框架调用大模型（暂定gin框架）
 
-3.使用HTTP框架调用大模型（暂定gin框架）
+3.实现更多的自动操作，减少手动操作
 
-4.实现更多的自动操作，减少手动操作
+4.使用GUI框架，构建友好的交互界面
 
-5.使用GUI框架，构建友好的交互界面
-
-6.打包为可执行程序
+5.打包为可执行程序
 
 
 
