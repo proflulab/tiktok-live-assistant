@@ -1,1 +1,1 @@
-## 此目录用于存储cookies文件，请在推送时清空cookies
+## 此目录用于存储cookies文件
