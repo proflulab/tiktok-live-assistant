@@ -29,7 +29,7 @@ func secondTask(live string) chromedp.Tasks {
 		chromedp.Navigate(live),
 
 		// 等待页面加载
-		chromedp.Sleep(5 * time.Second),
+		chromedp.Sleep(3 * time.Second),
 
 		getComments(),
 	}

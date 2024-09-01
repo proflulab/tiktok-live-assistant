@@ -24,3 +24,11 @@ func GetTiktokLiveURL() string {
 	roomID := os.Getenv("ROOM_ID")
 	return liveURL + roomID
 }
+
+func GetRoomXPATH() string {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	return os.Getenv("ROOM_XPATH")
+}
