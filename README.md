@@ -1,5 +1,5 @@
 # tiktok-live-assistant
-### 注意：本项目仅支持Chrome浏览器
+### 注意：本项目仅支持Chrome浏览器，且仅用于学习使用
 ## 使用说明
 
 ### 1.环境准备
