@@ -1,4 +1,4 @@
-package services
+package handlers
 
 import (
 	"context"
@@ -23,8 +23,8 @@ func init() {
 	cookiesPath = filepath.Join(cwd, "public", "cookies", "cookies.tmp")
 }
 
-// 加载Cookies
-func loadCookies() chromedp.ActionFunc {
+// LoadCookies 加载Cookies
+func LoadCookies() chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		fmt.Println("正在读取Cookies...")
 		// 如果cookies临时文件不存在则直接跳过
@@ -50,8 +50,8 @@ func loadCookies() chromedp.ActionFunc {
 	}
 }
 
-// 是否保存Cookies
-func checkSaveCookies() chromedp.ActionFunc {
+// CheckSaveCookies 是否保存Cookies
+func CheckSaveCookies() chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		var choice int
 		fmt.Println("完成登录后按任意键继续...")

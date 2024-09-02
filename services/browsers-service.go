@@ -5,27 +5,19 @@ import (
 	"github.com/chromedp/cdproto/network"
 	"github.com/chromedp/chromedp"
 	"log"
+	"tiktok-live-assistant/configs"
+	"tiktok-live-assistant/handlers"
 )
 
 // ChromeCtrl 操作浏览器
 func ChromeCtrl() {
 
 	// 从env获取URL
-	tiktokURL := GetTiktokURL()
-	liveRoom := GetTiktokLiveURL()
+	tiktokURL := handlers.GetTiktokURL()
+	liveRoom := handlers.GetTiktokLiveURL()
 
-	// 使用chrome-dp 配置Chrome浏览器的选项
-	opts := append(chromedp.DefaultExecAllocatorOptions[:],
-		chromedp.UserDataDir("D:\\.cache\\chrome-dp\\Directory"),
-		chromedp.Flag("disk-cache-dir", "D:\\.cache\\chrome-dp\\UserCache"),
-		chromedp.Flag("headless", false),
-		chromedp.Flag("enable-automation", false),
-		chromedp.Flag("blink-settings", "imagesEnabled=false"),
-		chromedp.Flag("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"),
-		chromedp.Flag("lang", "en-US,en;q=0.9"),
-		chromedp.WindowSize(1920, 1080),
-		chromedp.Flag("timezone", "America/New_York"),
-	)
+	var opts []chromedp.ExecAllocatorOption
+	opts = configs.BuildChromeDpOpts(opts)
 
 	// 创建一个分配器上下文，用于管理Chrome实例的执行
 	allocCtx, cancel := chromedp.NewExecAllocator(context.Background(), opts...)
