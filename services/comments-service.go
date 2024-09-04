@@ -45,7 +45,6 @@ func getComments() chromedp.ActionFunc {
 			if selection.Find(`span.lEfJhurR`).Length() > 0 {
 				continue
 			}
-
 			// 获取用户名和评论
 			username := selection.Find(`span.u2QdU6ht`).Text()
 			comment := selection.Find(`span.WsJsvMP9`).Text()

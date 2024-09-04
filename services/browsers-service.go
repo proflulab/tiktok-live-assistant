@@ -38,6 +38,8 @@ func ChromeCtrl() {
 		return
 	}
 
+	// TODO: 使用协程执行读写操作
+
 	// 清空所有 Cookies
 	e := chromedp.Run(ctx, chromedp.ActionFunc(func(ctx context.Context) error {
 		return network.ClearBrowserCookies().Do(ctx)
