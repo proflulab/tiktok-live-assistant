@@ -33,12 +33,23 @@ func ChromeCtrl() {
 		return
 	}
 
+	// 启动协程
+	go func() {
+		// 在协程中运行AskGuard
+		if err := AskGuard(); err != nil {
+			log.Fatal(err)
+		}
+	}()
+
 	// 执行任务2
 	if err := chromedp.Run(ctx, secondTask(liveRoom)); err != nil {
 		return
 	}
 
-	// TODO: 使用协程执行读写操作
+	// 执行任务3
+	if err := chromedp.Run(ctx, thirdTask()); err != nil {
+		return
+	}
 
 	// 清空所有 Cookies
 	e := chromedp.Run(ctx, chromedp.ActionFunc(func(ctx context.Context) error {

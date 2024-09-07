@@ -40,8 +40,7 @@ ROOM_XPATH=换成评论区的评论item（在浏览器使用“检查”复制�
 tiktok-live-assistant/
 ├── main.go    # 主程序入口
 ├── configs/   # 存放配置 
-├── init/      # 初始化  
-│   └── db.go/   # 数据库初始化   
+├── models/    # 封装数据结构 
 ├── public/    # 公共资源 
 │   └── cookies/     
 ├── services/    # 服务 由main直接调用，或service之间互相调用

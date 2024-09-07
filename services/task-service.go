@@ -30,8 +30,13 @@ func secondTask(live string) chromedp.Tasks {
 		chromedp.Navigate(live),
 
 		// 等待页面加载
-		chromedp.Sleep(2 * time.Second),
+		chromedp.Sleep(1 * time.Second),
+	}
+}
 
+func thirdTask() chromedp.Tasks {
+	return chromedp.Tasks{
+		// 获取评论
 		getComments(),
 	}
 }
