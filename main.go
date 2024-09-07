@@ -1,21 +1,16 @@
 package main
 
 import (
-	"tiktok-live-assistant/database"
+	"tiktok-live-assistant/configs"
+	"tiktok-live-assistant/services"
 )
 
 // 主程序入口
 func main() {
 
-	database.InitDB()
+	configs.InitDB()
 
-	//handlers.UpdateDate("D43", true)
-	//
-	//product := handlers.GetDataByID("D43")
-	//fmt.Printf("Product: %+v\n", product)
-
-	//services.ChromeCtrl()
-
+	services.ChromeCtrl()
 }
 
 //func test() {

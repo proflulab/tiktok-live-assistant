@@ -1,31 +1,42 @@
 package handlers
 
 import (
-	"tiktok-live-assistant/database"
+	"tiktok-live-assistant/configs"
 	"tiktok-live-assistant/models"
+	"time"
 )
 
 // InsertData 新增数据
-func InsertData(id, username, questionTime, commentContent string) {
+func InsertData(id, username, commentContent string, questionTime time.Time) {
 	product := models.Product{ID: id, UserName: username, QuestionTime: questionTime, CommentContent: commentContent}
-	database.DB.Create(&product)
+	configs.DB.Create(&product)
 }
 
 // DeleteData 删除数据
 func DeleteData(id string) {
-	database.DB.Delete(&models.Product{ID: id})
+	configs.DB.Delete(&models.Product{ID: id})
 }
 
-// UpdateDate 修改数据
-func UpdateDate(id string, questionJudgment bool) {
+// UpdateQuestionJudgment 修改数据
+func UpdateQuestionJudgment(id string, questionJudgment bool) {
 	var product models.Product
-	database.DB.First(&product, models.Product{ID: id})
-	database.DB.Model(&product).Update("QuestionJudgment", questionJudgment)
+	configs.DB.First(&product, models.Product{ID: id})
+	configs.DB.Model(&product).Update("QuestionJudgment", questionJudgment)
 }
 
 // GetDataByID 查询(通过ID)
 func GetDataByID(id string) models.Product {
 	var product models.Product
-	database.DB.First(&product, models.Product{ID: id})
+	configs.DB.First(&product, models.Product{ID: id})
+	return product
+}
+
+func GetDataWithMinQuestionTime() models.Product {
+	var product models.Product
+	// 查询 question_judgment 为 false 或 0，按 question_time 升序排序，获取第一条记录
+	configs.DB.Where("question_judgment = 0 OR question_judgment IS NULL", false).
+		Order("question_time ASC").
+		Limit(1).
+		First(&product)
 	return product
 }

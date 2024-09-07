@@ -1,12 +1,9 @@
 package handlers
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/chromedp/chromedp"
 	"golang.org/x/net/context"
-	"os"
 	"strings"
 )
 
@@ -36,25 +33,4 @@ func GetCurrentSelection(selection *goquery.Selection, doc *goquery.Document) *g
 		selection = s
 	})
 	return selection
-}
-
-// SaveDataList 保存 dataList 到项目目录的函数
-func SaveDataList(dataList []map[string]string) {
-	file, err := os.Create("data_list.json")
-	if err != nil {
-		fmt.Printf("Error creating file: %v\n", err)
-		return
-	}
-	defer func(file *os.File) {
-		err = file.Close()
-		if err != nil {
-			fmt.Printf("Error closing file: %v\n", err)
-		}
-	}(file)
-
-	encoder := json.NewEncoder(file)
-	encoder.SetIndent("", "  ") // 设置 JSON 缩进格式
-	if err = encoder.Encode(dataList); err != nil {
-		fmt.Printf("Error encoding dataList to JSON: %v\n", err)
-	}
 }

@@ -11,9 +11,6 @@ import (
 	"time"
 )
 
-// 存储数据
-var dataList []map[string]string
-
 // 存储上一个id
 var lastDataID string
 
@@ -53,11 +50,11 @@ func getComments() chromedp.ActionFunc {
 				continue
 			}
 			username = strings.TrimSuffix(username, "：")
-			// 添加数据到 dataList
-			dataList = append(dataList, map[string]string{
-				"username": username,
-				"comment":  comment,
-			})
+			// 添加数据到数据库
+			uniqueId := handlers.GenerateRandomString(16) // 获取唯一表示
+			now := time.Now()                             // 获取时间戳
+			handlers.InsertData(uniqueId, username, comment, now)
+
 			fmt.Println("=================================")
 			fmt.Println("用户名：", username)
 			fmt.Println("评论：", comment)
