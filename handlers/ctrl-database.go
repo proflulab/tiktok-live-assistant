@@ -35,7 +35,7 @@ func GetDataWithMinQuestionTime() models.Product {
 	var product models.Product
 	// 查询 question_judgment 为 false 或 0，按 question_time 升序排序，获取第一条记录
 	configs.DB.Where("question_judgment = 0 OR question_judgment IS NULL", false).
-		Order("question_time ASC").
+		Order("question_time DESC").
 		Limit(1).
 		First(&product)
 	return product

@@ -68,7 +68,7 @@ tiktok-live-assistant/
 
 1.优化缓存配置，减少空间占用（已完成）
 
-2.使用协程提高效率（未完成）
+2.使用协程提高效率（已完成）
 
 3.数据实时同步至多维表（未完成）
 
@@ -76,7 +76,7 @@ tiktok-live-assistant/
 
 ### 项目后续
 
-1.使用GORM框架操作SQLite
+1.使用GORM框架操作SQLite（已完成）
 
 2.使用HTTP框架调用大模型（暂定gin框架）
 
