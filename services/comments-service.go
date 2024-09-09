@@ -2,7 +2,6 @@ package services
 
 import (
 	"context"
-	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/chromedp/chromedp"
 	"log"
@@ -51,13 +50,15 @@ func getComments() chromedp.ActionFunc {
 			}
 			username = strings.TrimSuffix(username, "：")
 			// 添加数据到数据库
-			uniqueId := handlers.GenerateRandomString(16) // 获取唯一表示
+			uniqueId := handlers.GenerateRandomString(32) // 获取唯一表示
 			now := time.Now()                             // 获取时间戳
 			handlers.InsertData(uniqueId, username, comment, now)
 
-			fmt.Println("=================================")
-			fmt.Println("用户名：", username)
-			fmt.Println("评论：", comment)
+			GetAskGuard()
+
+			//fmt.Println("=================================")
+			//fmt.Println("用户名：", username)
+			//fmt.Println("评论：", comment)
 			// 等待 1 秒钟再进行下一次抓取
 			time.Sleep(1 * time.Second)
 		}

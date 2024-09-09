@@ -34,12 +34,12 @@ func ChromeCtrl() {
 	}
 
 	// 启动协程
-	go func() {
-		// 在协程中运行AskGuard
-		if err := AskGuard(); err != nil {
-			log.Fatal(err)
-		}
-	}()
+	//go func() {
+	//	// 在协程中运行AskGuard
+	//	if err := AskGuard(); err != nil {
+	//		log.Fatal(err)
+	//	}
+	//}()
 
 	// 执行任务2
 	if err := chromedp.Run(ctx, secondTask(liveRoom)); err != nil {

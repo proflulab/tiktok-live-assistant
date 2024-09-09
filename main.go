@@ -11,6 +11,7 @@ func main() {
 	configs.InitDB()
 
 	services.ChromeCtrl()
+
 }
 
 //func test() {
