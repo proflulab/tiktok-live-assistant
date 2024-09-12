@@ -40,3 +40,10 @@ func GetDataWithMinQuestionTime() models.Product {
 		First(&product)
 	return product
 }
+
+func GetUserComments() []models.Product {
+	var products []models.Product
+	configs.DB.Select("user_name", "comment_content").
+		Find(&products)
+	return products
+}

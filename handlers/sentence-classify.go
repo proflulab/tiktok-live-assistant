@@ -13,12 +13,12 @@ func SentenceClassify(sentence string) bool {
 	}
 
 	// 常见的中文疑问词集合
-	//chineseQuestionWords := map[string]bool{
-	//	"吗": true, "么": true, "什么": true, "怎么": true, "为什么": true, "是否": true, "哪": true,
-	//	"几": true, "多少": true, "多大": true, "谁": true, "啥": true, "哪儿": true, "能否": true,
-	//	"哪里": true, "哪个": true, "何时": true, "怎样": true, "咋样": true, "有何": true, "有么": true,
-	//	"对吧": true, "好吗": true, "如何": true, "为啥": true, "难道": true, "有没有": true,
-	//}
+	chineseQuestionWords := map[string]bool{
+		"吗": true, "么": true, "什么": true, "怎么": true, "为什么": true, "是否": true, "哪": true,
+		"几": true, "多少": true, "多长": true, "多大": true, "多久": true, "谁": true, "啥": true, "哪儿": true, "能否": true,
+		"哪里": true, "哪个": true, "何时": true, "怎样": true, "咋样": true, "有何": true, "有么": true,
+		"对吧": true, "好吗": true, "如何": true, "为啥": true, "难道": true, "有没有": true,
+	}
 
 	// 常见英文疑问词集合
 	englishQuestionWords := map[string]bool{
@@ -37,7 +37,7 @@ func SentenceClassify(sentence string) bool {
 
 	// 过滤侮辱性或无意义的短语
 	nonQuestionPhrases := []string{
-		"你妈的", "去死", "傻逼", "你丫的", "他妈的", "草你妈", "日你妈", "傻b", "智障",
+		"你妈的", "去死", "傻逼", "你丫的", "他妈的", "草你妈", "骗子", "马扁子", "日你妈", "傻b", "智障",
 		"混蛋", "混账", "滚蛋", "fuck", "shit", "idiot",
 	}
 
@@ -66,8 +66,15 @@ func SentenceClassify(sentence string) bool {
 		return false
 	}
 
-	// 检查中文问句
-	chinesePattern := regexp.MustCompile(`(吗|么|什么|怎么|为什么|是否|哪|几|多少|多大|谁|啥|哪儿|能否|哪里|哪个|何时|怎样|咋样|有何|有么|对吧|好吗|如何|为啥|难道|有没有)|(?:.*[啊呢吗呀]?[?？])`)
+	// 遍历判断是否包含疑问词
+	for word := range chineseQuestionWords {
+		if contains(sentence, word) {
+			return true
+		}
+	}
+
+	// 使用正则匹配句子是否有疑问的标志，如 "啊呢吗呀" 以及 "?" 和 "？"
+	chinesePattern := regexp.MustCompile(`[啊呢吗呀喃]?[\?？]`)
 	if chinesePattern.MatchString(sentence) {
 		return true
 	}
@@ -113,4 +120,9 @@ func SentenceClassify(sentence string) bool {
 	}
 
 	return false
+}
+
+// 字符串包含判断函数
+func contains(sentence, word string) bool {
+	return regexp.MustCompile(regexp.QuoteMeta(word)).FindStringIndex(sentence) != nil
 }
