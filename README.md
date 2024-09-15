@@ -6,6 +6,9 @@ TIKTOK_URL=https://www.douyin.com/
 TIKTOK_LIVE_URL=https://live.douyin.com/
 ROOM_ID=换成直播间ID
 ROOM_XPATH=换成评论区的评论item（在浏览器使用“检查”复制元素的class）
+BASEURL=https://api.coze.cn/v3/chat
+BOT=换成扣子大模型的id（具体参考扣子API文档https://www.coze.cn/docs/developer_guides/coze_api_overview）
+AUTH=Bearer <扣子API令牌>
 ```
 
 ## 使用说明
@@ -43,10 +46,11 @@ tiktok-live-assistant/
 ├── models/    # 封装数据结构 
 ├── public/    # 公共资源 
 │   └── cookies/     
-├── services/    # 服务 由main直接调用，或service之间互相调用
+├── services/  # 服务 由main直接调用，或service之间互相调用
 │   └── browsers-service.go
-├── handlers/    # 操作 由services层调用，或handler之间互相调用。负责更具体的读、写和判断等操作 
-│   └── ctrl-cookies.go/  
+├── handlers/  # 操作 由services层调用，或handler之间互相调用。负责更具体的读、写和判断等操作 
+│   └── ctrl-cookies.go/ 
+├── test/      # 测试文件  
 └── go.mod    // 依赖
 ```
 
@@ -62,7 +66,7 @@ tiktok-live-assistant/
 
 5.算法判断问句（已完成）
 
-6.自动发送信息（未完成）
+6.自动发送信息（进行中）
 
 ### 扩展功能项
 
@@ -74,17 +78,19 @@ tiktok-live-assistant/
 
 4.问答数据（未完成）
 
-### 项目后续
+### 其它
 
 1.使用GORM框架操作SQLite（已完成）
 
-2.使用HTTP框架调用大模型（暂定gin框架）
+2.使用HTTP框架调用大模型（已完成）
 
 3.实现更多的自动操作，减少手动操作
 
 4.使用GUI框架，构建友好的交互界面
 
 5.打包为可执行程序
+
+6.追加其它浏览器支持（Edge、火狐）
 
 
 

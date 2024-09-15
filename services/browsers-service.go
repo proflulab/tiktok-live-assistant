@@ -13,8 +13,8 @@ import (
 func ChromeCtrl() {
 
 	// 从env获取URL
-	tiktokURL := handlers.GetTiktokURL()
-	liveRoom := handlers.GetTiktokLiveURL()
+	tiktokURL := handlers.GetEnv("TIKTOK_URL")
+	liveRoom := handlers.GetEnv("TIKTOK_LIVE_URL")
 
 	var opts []chromedp.ExecAllocatorOption
 	opts = configs.BuildChromeDpOpts(opts)
