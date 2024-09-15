@@ -8,7 +8,7 @@ import (
 )
 
 // RoomXPATH 元素
-var RoomXPATH = GetRoomXPATH()
+var RoomXPATH = GetEnv("ROOM_XPATH")
 
 // GetHttpHtmlContent 抓取网站动态数据
 func GetHttpHtmlContent(htmlContent string, ctx context.Context) (string, context.Context, error) {

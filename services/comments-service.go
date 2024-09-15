@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/chromedp/chromedp"
 	"log"
@@ -20,6 +21,7 @@ var lastDataID string
 // 获取评论
 func getComments() chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
+		fmt.Println("开始抓取评论......")
 		for {
 			var htmlContent string
 			var doc *goquery.Document
@@ -69,6 +71,8 @@ func getComments() chromedp.ActionFunc {
 			handlers.InsertData(uniqueId, username, comment, now)
 			// 检查句子
 			GetAskGuard()
+
+			// TODO: 调用大模型解答问题
 
 			// 等待 1 秒钟再进行下一次抓取
 			time.Sleep(1 * time.Second)
